@@ -9,23 +9,23 @@ Instalação e Execução
 Configuração do ambiente:
 
 - Certifique-se de ter o Docker instalado.
-- Execute docker-compose up -d
+- Execute `docker-compose up -d`
 
 Acesse o container do PHP:
 
-- docker exec -it laravel_wikipedia-laravel.test-1 bash
+- `docker exec -it laravel_wikipedia-laravel.test-1 bash`
   
 Crie a base de dados:
 
-- Execute o comando php artisan migrate dentro do container
+- Execute o comando `php artisan migrate` dentro do container
 
 Rode o comando para capturar os dados das empresas:
 
-- Execute o comando php artisan companies:capture dentro do container
+- Execute o comando `php artisan companies:capture` dentro do container
 
 Execução de testes:
 
-- Execute o comando vendor/bin/phpunit dentro do container
+- Execute o comando `vendor/bin/phpunit` dentro do container
   
 Teste a API:
 
