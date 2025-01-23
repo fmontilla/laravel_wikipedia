@@ -4,16 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FilterCompaniesRequest;
 use App\Http\Resources\CompanyResource;
-use Illuminate\Http\Request;
 use App\Models\Company;
 use Illuminate\Support\Facades\Cache;
-use App\Services\CompanyFilterService;
+use App\Services\CompanyFilterServiceInterface;
 
 class CompanyController extends Controller
 {
     protected $companyFilterService;
 
-    public function __construct(CompanyFilterService $companyFilterService)
+    public function __construct(CompanyFilterServiceInterface $companyFilterService)
     {
         $this->companyFilterService = $companyFilterService;
     }

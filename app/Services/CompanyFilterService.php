@@ -4,9 +4,9 @@ namespace App\Services;
 
 use Illuminate\Support\Collection;
 
-class CompanyFilterService
+class CompanyFilterService implements CompanyFilterServiceInterface
 {
-    public function filter(Collection $companies, $request)
+    public function filter(Collection $companies, $request): Collection
     {
         switch ($request->rule) {
             case 'greater':
@@ -20,21 +20,21 @@ class CompanyFilterService
         }
     }
 
-    private function filterGreater(Collection $companies, $billions)
+    private function filterGreater(Collection $companies, $billions): Collection
     {
         return $companies->filter(function ($company) use ($billions) {
             return $company->profit > $billions;
         });
     }
 
-    private function filterSmaller(Collection $companies, $billions)
+    private function filterSmaller(Collection $companies, $billions): Collection
     {
         return $companies->filter(function ($company) use ($billions) {
             return $company->profit < $billions;
         });
     }
 
-    private function filterBetween(Collection $companies, $range)
+    private function filterBetween(Collection $companies, $range): Collection
     {
         if (!$range || count($range) !== 2) {
             return collect();
