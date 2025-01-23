@@ -3,11 +3,14 @@
 namespace App\Services;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class CompanyFilterService implements CompanyFilterServiceInterface
 {
     public function filter(Collection $companies, $request): Collection
     {
+        Log::info('Applying filter', ['rule' => $request->rule]);
+
         switch ($request->rule) {
             case 'greater':
                 return $this->filterGreater($companies, $request->billions);
@@ -22,6 +25,8 @@ class CompanyFilterService implements CompanyFilterServiceInterface
 
     private function filterGreater(Collection $companies, $billions): Collection
     {
+        Log::info('Filtering companies with profit greater than', ['billions' => $billions]);
+
         return $companies->filter(function ($company) use ($billions) {
             return $company->profit > $billions;
         });
@@ -29,6 +34,8 @@ class CompanyFilterService implements CompanyFilterServiceInterface
 
     private function filterSmaller(Collection $companies, $billions): Collection
     {
+        Log::info('Filtering companies with profit smaller than', ['billions' => $billions]);
+
         return $companies->filter(function ($company) use ($billions) {
             return $company->profit < $billions;
         });
@@ -39,8 +46,11 @@ class CompanyFilterService implements CompanyFilterServiceInterface
         if (!$range || count($range) !== 2) {
             return collect();
         }
+
         $min = $range[0];
         $max = $range[1];
+
+        Log::info('Filtering companies with profit between', ['min' => $min, 'max' => $max]);
 
         return $companies->filter(function ($company) use ($min, $max) {
             return $company->profit >= $min && $company->profit <= $max;
